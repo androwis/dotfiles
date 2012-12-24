@@ -1,8 +1,5 @@
 # Androwis' Dotfiles
 
-* Don't use this yet, this is a pile of crap right now.
-
-
 ## Installation
 
 ### Using Git and the bootstrap script
