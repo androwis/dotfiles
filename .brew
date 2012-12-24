@@ -17,6 +17,15 @@ brew install bash
 # Install wget with IRI support
 brew install wget --enable-iri
 
+# Install all the stuff for rbenv
+brew install rbenv
+brew install ruby-build
+rbenv install 1.9.3-p327
+gem install bundler
+gem install rake
+gem install t
+gem install jekyll
+
 # Install more recent versions of some OS X tools
 brew tap homebrew/dupes
 brew install homebrew/dupes/grep
@@ -26,17 +35,14 @@ brew install php54
 # Install everything else
 brew install ack
 brew install git
-
-# Install all the stuff for rbenv
-brew install rbenv
-brew install ruby-build
-rbenv install 1.9.3-p327
-gem install bundler
-rbenv rehash
-rbenv global 1.9.3-e327
-
-
 brew install cmake
+brew install scala, sbt
 
 # Remove outdated versions from the cellar
 brew cleanup
+
+rbenv rehash
+rbenv global 1.9.3-e327
+
+git config --global user.name "androwis abumoussa"
+git config --global user.email androwis@androw.is
