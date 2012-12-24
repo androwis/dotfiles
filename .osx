@@ -28,12 +28,15 @@ defaults write com.apple.menuextra.battery ShowTime -string "NO"
 # Menu bar: hide the useless Time Machine and Volume icons
 defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
+# Menu bar: disable the useless spotlight search
+sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+
 # Disable smooth scrolling
 # (Uncomment if you’re on an older Mac that messes up the animation)
 #defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
 # Increase window resize speed for Cocoa applications
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+#defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -256,8 +259,8 @@ unset file
 # Dock & hot corners                                                          #
 ###############################################################################
 
-# Set the icon size of Dock items to 24 pixels
-defaults write com.apple.dock tilesize -int 24
+# Set the icon size of Dock items to 16 pixels
+defaults write com.apple.dock tilesize -int 16
 
 # Enable spring loading for all Dock items
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
@@ -265,23 +268,12 @@ defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool false
 
-# Don’t animate opening applications from the Dock
-defaults write com.apple.dock launchanim -bool false
-
-# Speed up Mission Control animations
-defaults write com.apple.dock expose-animation-duration -float 0.1
-
 # Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)
 defaults write com.apple.dock expose-group-by-app -bool true
 
 # Don’t show Dashboard as a Space
 defaults write com.apple.dock dashboard-in-overlay -bool true
-
-# Remove the auto-hiding Dock delay
-defaults write com.apple.Dock autohide-delay -float 0
-# Remove the animation when hiding/showing the Dock
-defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Enable the 2D Dock
 defaults write com.apple.dock no-glass -bool true
