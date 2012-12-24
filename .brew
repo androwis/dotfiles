@@ -27,5 +27,16 @@ brew install php54
 brew install ack
 brew install git
 
+# Install all the stuff for rbenv
+brew install rbenv
+brew install ruby-build
+rbenv install 1.9.3-p327
+gem install bundler
+rbenv rehash
+rbenv global 1.9.3-e327
+
+
+brew install cmake
+
 # Remove outdated versions from the cellar
 brew cleanup
