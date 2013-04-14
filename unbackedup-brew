@@ -1,0 +1,5 @@
+ossp-uuid portaudio
+freetype  tbb       zlib
+libidn    mcrypt    pcre      xz
+autoconf  gettext   texinfo   pkg-config
+fftw      gd        gnu-sed   icu4c       libtool

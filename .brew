@@ -8,16 +8,21 @@ brew upgrade
 
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
+
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
+
 # Install Bash 4
 brew install bash
 
 # Install wget with IRI support
-brew install wget --enable-iri
+brew install wget --enable-iri, grep
+
 
 # Install all the stuff for rbenv
+brew install ctags
 brew install rbenv
 brew install ruby-build
 rbenv install 1.9.3-p327
@@ -36,7 +41,18 @@ brew install php54
 brew install ack
 brew install git
 brew install cmake
-brew install scala, sbt
+
+# Install python dependencies
+brew gdbm, readline, sqlite, couchdb
+
+# Install some programming languages
+brew install python, clojure, lua, postgresql, scala, sbt, erlang
+
+# Install some databases
+brew install redis, mysql
+
+# Install some graphic tools
+brew install opencv, gnuplot, graphicsmagick, jpeg, qt, libpng
 
 # Remove outdated versions from the cellar
 brew cleanup
