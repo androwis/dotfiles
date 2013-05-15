@@ -41,12 +41,26 @@ brew install php54
 brew install ack
 brew install git
 brew install cmake
+brew install tmux
 
 # Install python dependencies
-brew gdbm, readline, sqlite, couchdb
+brew gdbm, readline, sqlite, couchdb, gfortran
+
 
 # Install some programming languages
 brew install python, clojure, lua, postgresql, scala, sbt, erlang
+
+# Install SciPy
+brew tap samueljohn/homebrew-python
+brew tap homebrew/science
+pip install nose
+brew install numpy
+brew install scipy
+
+pip install cython
+pip install -e git+https://github.com/scipy/scipy#egg=scipy-dev
+pip install numpy
+
 
 # Install some databases
 brew install redis, mysql
