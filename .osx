@@ -65,11 +65,10 @@ defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSource
 # Delete the default layouts (US)
 defaults delete /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources
 
-# Enable Finnish layout
-defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
-defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
-defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
-
+# Enable Dvorak layout
+defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
+defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
+defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
 
 # Menu bar: disable the useless spotlight search
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
@@ -323,7 +322,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock launchanim -bool true
 
 # Speed up Mission Control animations
-#defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write com.apple.dock expose-animation-duration -float 0.2
 
 # Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)
@@ -359,18 +358,31 @@ find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 # 7  : dashboard
 # 10 : put_display_to_sleep
 # 11 : launchpad
-# Top left screen corner → Dashboard
-defaults write com.apple.dock wvous-tl-corner -int 7
+
+# Top left screen corner → Application Windows
+defaults write com.apple.dock wvous-tl-corner -int 3
 defaults write com.apple.dock wvous-tl-modifier -int 0
+
 # Top right screen corner → Mission Control
-defaults write com.apple.dock wvous-tr-corner -int 3
+defaults write com.apple.dock wvous-tr-corner -int 2
 defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 4
+
+# Bottom left screen corner → Dashboard
+defaults write com.apple.dock wvous-bl-corner -int 7
 defaults write com.apple.dock wvous-bl-modifier -int 0
-# Bottom right screen corner → Application Windows
-defaults write com.apple.dock wvous-br-corner -int 3
+
+# Bottom right screen corner → Desktop
+defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
+
+# change login screen background to dark gray
+wget http://upload.wikimedia.org/wikipedia/commons/6/68/Solid_black.png
+sudo mv Solid_black.png /Library/Desktop\ Pictures/Solid\ Colors/
+defaults write com.apple.desktop Background '{default = {ImageFilePath = "/Library/Desktop Pictures/Solid Colors/Solid_black.png"; }; }'
+
+sudo mv /Library/Desktop\ Pictures/Galaxy.jpg /Library/Desktop\ Pictures/Galaxy.jpg.bak
+sudo ln -s /Library/Desktop\ Pictures/Solid\ Colors/Solid_black.png /Library/Desktop\ Pictures/Galaxy.jpg
+
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -505,6 +517,7 @@ defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
 # Enable Debug Menu in the Mac App Store
 defaults write com.apple.appstore ShowDebugMenu -bool true
+
 
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
