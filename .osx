@@ -22,8 +22,24 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool true
 
 # Menu bar: show remaining battery time (on pre-10.8); hide percentage
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+defaults write com.apple.menuextra.battery ShowPercent -string "NO"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
+
+
+defaults write /Applications/Mission\ Control.app/Contents/Info LSUIElement 1
+defaults write /Applications/Launchpad.app/Contents/Info LSUIElement 1
+defaults write /Applications/Safari.app/Contents/Info LSUIElement 1
+defaults write /Applications/Mail.app/Contents/Info LSUIElement 1
+defaults write /Applications/Contacts.app/Contents/Info LSUIElement 1
+defaults write /Applications/Calendar.app/Contents/Info LSUIElement 1
+defaults write /Applications/Reminders.app/Contents/Info LSUIElement 1
+defaults write /Applications/Notes.app/Contents/Info LSUIElement 1
+defaults write /Applications/Messages.app/Contents/Info LSUIElement 1
+defaults write /Applications/FaceTime.app/Contents/Info LSUIElement 1
+defaults write /Applications/Photo\ Booth.app/Contents/Info LSUIElement 1
+defaults write /Applications/iTunes.app/Contents/Info LSUIElement 1
+defaults write /Applications/App\ Store.app/Contents/Info LSUIElement 1
+defaults write /Applications/System\ Preferences.app/Contents/Info LSUIElement 1
 
 # Menu bar: hide the useless Time Machine and Volume icons
 defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
