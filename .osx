@@ -25,24 +25,51 @@ defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool true
 defaults write com.apple.menuextra.battery ShowPercent -string "NO"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
 
-
-defaults write /Applications/Mission\ Control.app/Contents/Info LSUIElement 1
-defaults write /Applications/Launchpad.app/Contents/Info LSUIElement 1
-defaults write /Applications/Safari.app/Contents/Info LSUIElement 1
-defaults write /Applications/Mail.app/Contents/Info LSUIElement 1
-defaults write /Applications/Contacts.app/Contents/Info LSUIElement 1
-defaults write /Applications/Calendar.app/Contents/Info LSUIElement 1
-defaults write /Applications/Reminders.app/Contents/Info LSUIElement 1
-defaults write /Applications/Notes.app/Contents/Info LSUIElement 1
-defaults write /Applications/Messages.app/Contents/Info LSUIElement 1
-defaults write /Applications/FaceTime.app/Contents/Info LSUIElement 1
-defaults write /Applications/Photo\ Booth.app/Contents/Info LSUIElement 1
-defaults write /Applications/iTunes.app/Contents/Info LSUIElement 1
-defaults write /Applications/App\ Store.app/Contents/Info LSUIElement 1
-defaults write /Applications/System\ Preferences.app/Contents/Info LSUIElement 1
-
 # Menu bar: hide the useless Time Machine and Volume icons
-defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
+#defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
+defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu"
+
+
+# ==============================================
+# Set energy preferences
+# ==============================================
+
+# From <https://github.com/rtrouton/rtrouton_scripts/>
+IS_LAPTOP=`/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book"`
+if [[ "$IS_LAPTOP" != "" ]]; then
+        pmset -b sleep 15 disksleep 10 displaysleep 5 halfdim 1
+        pmset -c sleep 0 disksleep 30 displaysleep 5 halfdim 1
+ else
+        pmset sleep 0 disksleep 0 displaysleep 15 halfdim 1
+ fi
+
+# ==============================================
+# Login window
+# ==============================================
+
+# Display login window as: Name and password
+defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool true
+
+# Show shut down etc. buttons
+defaults write /Library/Preferences/com.apple.loginwindow PowerOffDisabled -bool false
+
+# ==============================================
+# Set keyboard preferences
+# ==============================================
+defaults write /Library/Preferences/com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID "com.apple.keylayout.Dvorak"
+defaults write /Library/Preferences/com.apple.HIToolbox AppleDefaultAsciiInputSource -dict InputSourceKind "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+
+# Delete the default layouts (US)
+defaults delete /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources
+
+# Enable Finnish layout
+defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
+defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
+defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
+
 
 # Menu bar: disable the useless spotlight search
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
