@@ -56,19 +56,19 @@ defaults write /Library/Preferences/com.apple.loginwindow PowerOffDisabled -bool
 # ==============================================
 # Set keyboard preferences
 # ==============================================
-defaults write /Library/Preferences/com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID "com.apple.keylayout.Dvorak"
-defaults write /Library/Preferences/com.apple.HIToolbox AppleDefaultAsciiInputSource -dict InputSourceKind "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
-defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
-defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
-defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID "com.apple.keylayout.Dvorak"
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleDefaultAsciiInputSource -dict InputSourceKind "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleEnabledInputSources -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleInputSourceHistory -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources -dict InputSourceKind      "Keyboard Layout" "KeyboardLayout ID" -int 16300 "KeyboardLayout Name" Dvorak
 
 # Delete the default layouts (US)
-defaults delete /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources
+defaults delete /Library/Preferences/com.apple.HIToolbox.plist AppleEnabledInputSources
 
 # Enable Dvorak layout
-defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
-defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
-defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
+defaults write /Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 16300; "KeyboardLayout Name" = Dvorak; }'
 
 # Menu bar: disable the useless spotlight search
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
