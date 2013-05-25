@@ -1,5 +1,7 @@
 #!/bin/bash
 cd "$(dirname "${BASH_SOURCE}")"
+cd .vim && git submodule update --recursive
+cd ..
 git pull
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" -av . ~
