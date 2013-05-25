@@ -17,3 +17,7 @@ else
 fi
 unset doIt
 source ~/.bash_profile
+
+cd ~/.vim/bundle/command-t/ruby/command-t/
+ruby extconf.rb
+make
