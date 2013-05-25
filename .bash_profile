@@ -31,7 +31,7 @@ export LANG="en_US"
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
-[ -f /opt/boxen/env.sh] && sourcd /opt/boxen/env.sh
+[ -f /opt/boxen/env.sh] && source /opt/boxen/env.sh
 
 eval "$(rbenv init -)"
 
