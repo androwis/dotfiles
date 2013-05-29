@@ -287,6 +287,10 @@ unset file
 # Dock & hot corners                                                          #
 ###############################################################################
 
+# Remove all the icons from the dock
+defaults delete com.apple.dock persistent-apps
+defaults delete com.apple.dock persistent-others
+
 # Set the icon size of Dock items to 16 pixels
 defaults write com.apple.dock tilesize -int 16
 
