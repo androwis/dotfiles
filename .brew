@@ -6,27 +6,8 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade
 
-# Install GNU core utilities (those that come with OS X are outdated)
-brew install coreutils
-
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-brew install findutils
-
-# Install Bash 4
-brew install bash
-
-# Install wget with IRI support
-brew install wget --enable-iri, grep
-
-
-# Install all the stuff for rbenv
-brew install ctags
-brew install rbenv
-brew install ruby-build
-rbenv install 1.9.3-p327
-gem install bundler
 gem install rake
 gem install t
 gem install jekyll
@@ -35,20 +16,6 @@ gem install jekyll
 brew tap homebrew/dupes
 brew install homebrew/dupes/grep
 brew tap josegonzalez/homebrew-php
-brew install php54
-
-# Install everything else
-brew install ack
-brew install git
-brew install cmake
-brew install tmux
-
-# Install python dependencies
-brew gdbm, readline, sqlite, couchdb, gfortran
-
-
-# Install some programming languages
-brew install python, clojure, lua, postgresql, scala, sbt, erlang
 
 # Install SciPy
 brew tap samueljohn/homebrew-python
@@ -56,23 +23,14 @@ brew tap homebrew/science
 pip install nose
 brew install numpy
 brew install scipy
-
 pip install cython
 pip install -e git+https://github.com/scipy/scipy#egg=scipy-dev
 pip install numpy
-
-
-# Install some databases
-brew install redis, mysql
-
-# Install some graphic tools
-brew install opencv, gnuplot, graphicsmagick, jpeg, qt, libpng
 
 # Remove outdated versions from the cellar
 brew cleanup
 
 rbenv rehash
-rbenv global 1.9.3-e327
 
 git config --global user.name "androwis abumoussa"
-git config --global user.email androwis@androw.is
+git config --global user.email androwis@androwis.com

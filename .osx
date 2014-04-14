@@ -18,7 +18,7 @@ sudo scutil --set HostName "abubox"
 sudo scutil --set LocalHostName "abubox"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "abubox"
 
-# Menu bar: disable transparency
+# Menu bar: enable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool true
 
 # Menu bar: show remaining battery time (on pre-10.8); hide percentage
@@ -26,9 +26,23 @@ defaults write com.apple.menuextra.battery ShowPercent -string "NO"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
 
 # Menu bar: hide the useless Time Machine and Volume icons
-#defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu"
-defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu"
+for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+	defaults write "${domain}" dontAutoLoad -array \
+		"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+		"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+		"/System/Library/CoreServices/Menu Extras/Volume.menu" \
+		"/System/Library/CoreServices/Menu Extras/User.menu"
+done
+defaults write com.apple.systemuiserver menuExtras -array \
+	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
+	"/System/Library/CoreServices/Menu Extras/Clock.menu"
 
+# Set sidebar icon size to medium
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1 
+
+# Disable the sudden motion sensor as it’s not useful for SSDs
+sudo pmset -a sms 0
 
 # ==============================================
 # Set energy preferences
@@ -37,21 +51,15 @@ defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreS
 # From <https://github.com/rtrouton/rtrouton_scripts/>
 IS_LAPTOP=`/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book"`
 if [[ "$IS_LAPTOP" != "" ]]; then
-        pmset -b sleep 15 disksleep 10 displaysleep 5 halfdim 1
-        pmset -c sleep 0 disksleep 30 displaysleep 5 halfdim 1
+        sudo pmset -b sleep 15 disksleep 10 displaysleep 5 halfdim 1
+        sudo pmset -c sleep 0 disksleep 30 displaysleep 5 halfdim 1
  else
-        pmset sleep 0 disksleep 0 displaysleep 15 halfdim 1
+        sudo pmset sleep 0 disksleep 0 displaysleep 15 halfdim 1
  fi
 
 # ==============================================
 # Login window
 # ==============================================
-
-# Display login window as: Name and password
-defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool true
-
-# Show shut down etc. buttons
-defaults write /Library/Preferences/com.apple.loginwindow PowerOffDisabled -bool false
 
 # Menu bar: disable the useless spotlight search
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
@@ -99,10 +107,6 @@ defaults write com.apple.helpviewer DevMode -bool true
 # Adobe Illustrator CS5 :(
 #echo "0x08000100:0" > ~/.CFUserTextEncoding
 
-# Reveal IP address, hostname, OS version, etc. when clicking the clock
-# in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
@@ -140,8 +144,8 @@ defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
 #defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
 #defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 
-# Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# Enable “natural” (Lion-style) scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
 
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -167,6 +171,8 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 0
+defaults write -g com.apple.trackpad.scaling 1 
+defaults write -g com.apple.mouse.scaling 1
 
 # DoNot Automatically illuminate built-in MacBook keyboard in low light
 defaults write com.apple.BezelServices kDim -bool true
@@ -189,7 +195,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+defaults write com.apple.screensaver askForPasswordDelay -int 5
 
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "$HOME/Desktop"
@@ -223,7 +229,7 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
 # Finder: don't show hidden files by default
-defaults write com.apple.finder AppleShowAllFiles -bool false
+defaults write com.apple.finder AppleShowAllFiles -bool NO 
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -256,28 +262,17 @@ defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
-# Show item info near icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-
-# Show item info to the right of the icons on the desktop
-/usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
-
 # Enable snap-to-grid for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase grid spacing for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 2" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 2" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase the size of icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 1" ~/Library/Preferences/com.apple.finder.plist
 
 # Use clmv view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
@@ -326,7 +321,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock launchanim -bool true
 
 # Speed up Mission Control animations
-defaults write com.apple.dock expose-animation-duration -float 0.2
+defaults write com.apple.dock expose-animation-duration -float 0.1
 
 # Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)
@@ -334,9 +329,6 @@ defaults write com.apple.dock expose-group-by-app -bool true
 
 # Don’t show Dashboard as a Space
 defaults write com.apple.dock dashboard-in-overlay -bool true
-
-# Enable the 2D Dock
-defaults write com.apple.dock no-glass -bool true
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
@@ -371,8 +363,8 @@ defaults write com.apple.dock wvous-tl-modifier -int 0
 defaults write com.apple.dock wvous-tr-corner -int 2
 defaults write com.apple.dock wvous-tr-modifier -int 0
 
-# Bottom left screen corner → Dashboard
-defaults write com.apple.dock wvous-bl-corner -int 7
+# Bottom left screen corner → Mission Control
+defaults write com.apple.dock wvous-bl-corner -int 2
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
 # Bottom right screen corner → Desktop
@@ -380,12 +372,7 @@ defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
 # change login screen background to dark gray
-wget http://upload.wikimedia.org/wikipedia/commons/6/68/Solid_black.png
-sudo mv Solid_black.png /Library/Desktop\ Pictures/Solid\ Colors/
-defaults write com.apple.desktop Background '{default = {ImageFilePath = "/Library/Desktop Pictures/Solid Colors/Solid_black.png"; }; }'
-
-sudo mv /Library/Desktop\ Pictures/Galaxy.jpg /Library/Desktop\ Pictures/Galaxy.jpg.bak
-sudo ln -s /Library/Desktop\ Pictures/Solid\ Colors/Solid_black.png /Library/Desktop\ Pictures/Galaxy.jpg
+defaults write com.apple.desktop Background '{default = {ImageFilePath = '/Users/androwis/Dropbox/Pictures/Picasso_camel.jpg'; }; }'
 
 
 ###############################################################################
@@ -439,9 +426,6 @@ defaults write com.apple.iTunes disablePingSidebar -bool true
 
 # Disable all the other Ping stuff in iTunes
 defaults write com.apple.iTunes disablePing -bool true
-
-# Disable radio stations in iTunes
-defaults write com.apple.iTunes disableRadio -bool true
 
 # Make ⌘ + F focus the search input in iTunes
 # To use these commands in another language, browse iTunes’s package contents,
@@ -536,9 +520,12 @@ defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://
 ###############################################################################
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
+echo "Done. Note that some of these changes require a logout/restart to take effect."
+read -p "Press any key to continue... " -n1 -s
+
+
 for app in "Address Book" "Calendar" "Contacts" "Dashboard" "Dock" "Finder" \
 	"Mail" "Safari" "SizeUp" "SystemUIServer" "Terminal" "Transmission" \
 	"Twitter" "iCal" "iTunes"; do
 	killall "$app" > /dev/null 2>&1
 done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
