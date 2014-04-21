@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IPSec</key>
+	<dict>
+		<key>SystemConfig</key>
+		<dict>
+			<key>IPSec</key>
+			<dict>
+				<key>AuthenticationMethod</key>
+				<string>SharedSecret</string>
+				<key>ExportedSharedSecret</key>
+				<data>
+				Gvs9VqKN79mj/knF
+				</data>
+				<key>RemoteAddress</key>
+				<string>vpn.net.rochester.edu</string>
+				<key>SharedSecret</key>
+				<string>11CB74E0-9C59-4164-BAE6-3A91CC246F7E.SS</string>
+				<key>SharedSecretEncryption</key>
+				<string>Keychain</string>
+				<key>XAuthName</key>
+				<string>aabumous</string>
+				<key>XAuthPasswordEncryption</key>
+				<string>Prompt</string>
+			</dict>
+			<key>PPP</key>
+			<dict>
+				<key>AuthenticationMethod</key>
+				<string>SharedSecret</string>
+				<key>RemoteAddress</key>
+				<string>vpn.net.rochester.edu</string>
+				<key>SharedSecret</key>
+				<string>11CB74E0-9C59-4164-BAE6-3A91CC246F7E.SS</string>
+				<key>SharedSecretEncryption</key>
+				<string>Keychain</string>
+				<key>XAuthName</key>
+				<string>aabumous</string>
+				<key>XAuthPasswordEncryption</key>
+				<string>Prompt</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

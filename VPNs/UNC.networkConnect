@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IPSec</key>
+	<dict>
+		<key>SystemConfig</key>
+		<dict>
+			<key>IPSec</key>
+			<dict>
+				<key>AuthenticationMethod</key>
+				<string>SharedSecret</string>
+				<key>LocalIdentifier</key>
+				<string>UNCCampus</string>
+				<key>LocalIdentifierType</key>
+				<string>KeyID</string>
+				<key>RemoteAddress</key>
+				<string>vpn.unc.edu</string>
+				<key>SharedSecret</key>
+				<string>88BDA849-D0EC-4C23-8913-95FEF9EAE5D6.SS</string>
+				<key>SharedSecretEncryption</key>
+				<string>Keychain</string>
+				<key>XAuthName</key>
+				<string>andrewab</string>
+				<key>XAuthPasswordEncryption</key>
+				<string>Prompt</string>
+			</dict>
+			<key>PPP</key>
+			<dict>
+				<key>AuthenticationMethod</key>
+				<string>SharedSecret</string>
+				<key>LocalIdentifier</key>
+				<string>UNCCampus</string>
+				<key>LocalIdentifierType</key>
+				<string>KeyID</string>
+				<key>RemoteAddress</key>
+				<string>vpn.unc.edu</string>
+				<key>SharedSecret</key>
+				<string>88BDA849-D0EC-4C23-8913-95FEF9EAE5D6.SS</string>
+				<key>SharedSecretEncryption</key>
+				<string>Keychain</string>
+				<key>XAuthName</key>
+				<string>andrewab</string>
+				<key>XAuthPasswordEncryption</key>
+				<string>Prompt</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>
