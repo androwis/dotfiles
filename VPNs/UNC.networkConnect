@@ -10,6 +10,10 @@
 			<dict>
 				<key>AuthenticationMethod</key>
 				<string>SharedSecret</string>
+				<key>ExportedSharedSecret</key>
+				<data>
+				CeggS7fZseqty2x/
+				</data>
 				<key>LocalIdentifier</key>
 				<string>UNCCampus</string>
 				<key>LocalIdentifierType</key>
@@ -21,7 +25,7 @@
 				<key>SharedSecretEncryption</key>
 				<string>Keychain</string>
 				<key>XAuthName</key>
-				<string>andrewab</string>
+				<string>androwis</string>
 				<key>XAuthPasswordEncryption</key>
 				<string>Prompt</string>
 			</dict>
@@ -40,7 +44,7 @@
 				<key>SharedSecretEncryption</key>
 				<string>Keychain</string>
 				<key>XAuthName</key>
-				<string>andrewab</string>
+				<string>androwis</string>
 				<key>XAuthPasswordEncryption</key>
 				<string>Prompt</string>
 			</dict>
