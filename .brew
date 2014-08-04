@@ -17,6 +17,10 @@ brew tap homebrew/dupes
 brew install homebrew/dupes/grep
 brew tap josegonzalez/homebrew-php
 
+# Install more recent versions of GCC
+brew tap homebrew/versions
+brew install gcc48
+
 # Install SciPy
 brew tap samueljohn/homebrew-python
 brew tap homebrew/science
